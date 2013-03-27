@@ -14,7 +14,7 @@
 <div data-role="page" id="1st" data-rel="dialog"> 
 
     <div data-role="header" data-theme="f">
-        <h1>Responsive Mobile Client</h1>
+        <h1>My Favorite Things</h1>
     </div><!-- /header -->
     
     <div data-role="content">
@@ -24,7 +24,7 @@
               <!-- dynamic items goes here. -->  
             </ul>
         </div><!--/demo-html -->
-	<a href="#2nd" data-role="button">2nd</a>
+	<!-- <a href="#2nd" data-role="button">2nd</a> -->
     </div><!-- /content -->
     
     <div class="jqm-footer">
@@ -53,71 +53,27 @@
 <script type="text/javascript">
     $.getJSON('favs.json', function (data) {
 
-        //first level
-        var order = data.order;
-        var limit = data.limit;
-              
-        var trending, tracking;
-
         //second level
-        $.each(data.trending, function () {
-            trending = this;
-   
-            var url, text, image, date, last_track, last_count;
+        $.each(data, function (index) {
+			//var user = this.user;
+			//var entities = this.entities;
 
-            url=trending.url;
-            text=trending.text;
-            image=trending.image;
-            date=trending.date;
-            last_track=trending.last_track;
-            last_count=trending.last_count;
+			var created_at = data[index].created_at;
+			var id = data[index].id;
+			var text = data[index].text;
+			var source = data[index].source;
 
             var shtml='';    
 
-            
-            shtml=shtml+'<li><a href=\"#\">';
-            shtml=shtml+'<img src=\"'+image+'\" />';
-            shtml=shtml+'<h3>'+text+'</h3>';
-            shtml=shtml+'<p> Count:'+last_count+'</p></a>';
-            shtml=shtml+'<a href="#"></a>';
+            shtml=shtml+'<li>';
+
+			shtml=shtml+'<p>'+text+'</p>';
+
             shtml=shtml+'</li>';
             
             
             $('#items').append(shtml);
-
-            /*
-            //<!-- Lead story block -->
-            shtml=shtml+'<div class=\"ui-block-a\"><div class=\"ui-body ui-body-d\">';
-            shtml=shtml+'<img src=\"'+image+'\" />';               
-            shtml=shtml+'</div></div>';
-            
-            //<!-- secondary story block #1 -->
-            shtml=shtml+'<div class=\"ui-block-b\"><div class=\"ui-body ui-body-d\">';
-            shtml=shtml+text;
-            shtml=shtml+'</div></div>';
-            
-            //<!-- secondary story block #2 -->
-            shtml=shtml+'<div class=\"ui-block-c\"><div class=\"ui-body ui-body-d\">';
-            shtml=shtml+last_count;
-            shtml=shtml+date;
-            shtml=shtml+url;
-            shtml=shtml+'</div></div><div style=\"clear:both\"/>';
-            */
-            
-            //$('.rwd-example').append(shtml);
-
-            //third level
-            $.each(trending.tracking, function(){
-                tracking = this;
-                var timestamp, sequence, increment, count;
-
-                timestamp = tracking.timestamp; 
-                sequence = tracking.sequence; 
-                increment = tracking.increment; 
-                count = tracking.count;               
-            });        
         });
-
     });
 
 </script>

@@ -1,6 +1,7 @@
-TEAM MEMBERS
+Team Members
+---------
 
-Alon Sigal 998156846 g1sigal
-Henry Ku 998551348 g2kuhenr
-Simon Song 998447006 g2junhee
-Zheng (Lionheart) Xiong 998182112 c3xiongz 
+Alon Sigal			998156846	g1sigal		<br>
+Henry Ku			998551348	g2kuhenr	<br>
+Simon Song			998447006	g2junhee	<br>
+Zheng (Lionheart) Xiong		998182112	c3xiongz	<br>
