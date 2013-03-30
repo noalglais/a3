@@ -76,11 +76,11 @@
 			shtml=shtml+'<h3>'+tweet.text+'</h3>';
 			shtml=shtml+'<p> Count:'+tweet.retweet_count+'</p>';
 			shtml=shtml+'</li>';
-
-			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#popupBasic" data-rel="popup" data-role="button" data-inline="true" data-transition="pop">Basic Popup</a></li>'
+			
+			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#profile'+numPage+''+count+'" data-rel="popup" data-role="button" data-inline="true" data-transition="pop" data-position-to="window">Basic Popup</a></li>'
 
 			$('#tweet'+numPage).append(shtml);
-
+			makePopUpProfile(tweet, numPage, count);
 			count = count + 1;
         });
 
@@ -138,49 +138,63 @@
 		newPage.appendChild(content);
 		newPage.appendChild(footer);
 
-
-		var popup = document.createElement('div');
-		popup.setAttribute('data-role', "popup");
-		popup.setAttribute('id', 'popupParis');
-		popup.setAttribute('data-overlay-theme', 'a');
-		popup.setAttribute('data-theme', 'd');
-		popup.setAttribute('data-corners', 'false');
-
-		var popupA = document.createElement('a');
-		popupA.setAttribute('href', '#');
-		popupA.setAttribute('data-rel', 'back');
-		popupA.setAttribute('data-role', 'button');
-		popupA.setAttribute('data-theme', 'a');
-		popupA.setAttribute('data-icon', 'delete');
-		popupA.setAttribute('data-iconpos', 'notext');
-		popupA.setAttribute('class', 'ui-btn-right');
-
-		var popupAT = document.createTextNode('Close');
-
-		var popupImg = document.createElement('img');
-		popupImg.setAttribute('class', 'popphoto');
-		popupImg.setAttribute('src', 'http://cdn4.blogs.babble.com/pets/files/cat-tongue/02.jpg');
-		popupImg.setAttribute('style', 'max-height:512px');
-		popupImg.setAttribute('alt', 'Paris, France');
-
-		popupA.appendChild(popupAT);
-		popup.appendChild(popupA);
-		popup.appendChild(popupImg);
-		newPage.appendChild(popup);
-
-
-
 		var bpop = document.createElement('div');
 		bpop.setAttribute('data-role', 'popup');
 		bpop.setAttribute('id', 'popupBasic');
+		bpop.setAttribute('class', 'ui-content');
+		bpop.setAttribute('data-dismissible', 'false');
+
+		var ba = document.createElement('a');
+		ba.setAttribute('href', '#');
+		ba.setAttribute('data-rel', 'back');
+		ba.setAttribute('data-role', 'button');
+		ba.setAttribute('data-theme', 'a');
+		ba.setAttribute('data-icon', 'delete');
+		ba.setAttribute('data-iconpos', 'notext');
+		ba.setAttribute('class', 'ui-btn-right');
+		var baText = document.createTextNode("Close");
 
 		var bp = document.createElement('p');
 		var bText = document.createTextNode("This is a completely basic popup, no options set.");
 
+		ba.appendChild(baText);
+		bpop.appendChild(ba);
 		bp.appendChild(bText);
 		bpop.appendChild(bp);
 		newPage.appendChild(bpop);
 		$('body').append(newPage);
+	}
+
+	
+
+	function makePopUpProfile (tweet, numPage, count) {
+		var id = 'profile'+numPage +''+count;
+		var popup = document.createElement('div');
+		popup.setAttribute('data-role', 'popup');
+		popup.setAttribute('id', id);
+		popup.setAttribute('class', 'ui-content');
+		popup.setAttribute('data-dismissible', 'false');
+		popup.setAttribute('data-overlay-theme', 'a');
+
+		var a = document.createElement('a');
+		a.setAttribute('href', '#');
+		a.setAttribute('data-rel', 'back');
+		a.setAttribute('data-role', 'button');
+		a.setAttribute('data-theme', 'a');
+		a.setAttribute('data-icon', 'delete');
+		a.setAttribute('data-iconpos', 'notext');
+		a.setAttribute('class', 'ui-btn-right');
+		var aText = document.createTextNode("Close");
+		a.appendChild(aText);
+
+		var background = document.createElement('img');
+		background.setAttribute('class', 'popphoto');
+		background.setAttribute('src', 'https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png');
+
+		popup.appendChild(a);
+		popup.appendChild(background);
+
+		$('#page'+numPage).append(popup);
 	}
 </script>
 
