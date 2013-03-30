@@ -39,12 +39,12 @@
 </body>
 
 
-
+/* Script for creating new page and inserting tweets */
 <script type="text/javascript">
     $.getJSON('favs.json', function (data) {
 		var numPage = 1;
 		var lastPage = 0;
-		var tweetsPerPage = 1;
+		var tweetsPerPage = 10;
 		var count = 1;
         $.each(data, function (index) {
 			if (count > tweetsPerPage)
@@ -70,12 +70,17 @@
 			}
 			var tweet = this;
 			var shtml='';
+
 			shtml=shtml+'<li>';
 			shtml=shtml+'<img src=\"'+tweet.user.profile_image_url+'\" />';
 			shtml=shtml+'<h3>'+tweet.text+'</h3>';
-			shtml=shtml+'<p> Count:'+tweet.favorite_count+'</p>';
+			shtml=shtml+'<p> Count:'+tweet.retweet_count+'</p>';
 			shtml=shtml+'</li>';
+
+			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#popupBasic" data-rel="popup" data-role="button" data-inline="true" data-transition="pop">Basic Popup</a></li>'
+
 			$('#tweet'+numPage).append(shtml);
+
 			count = count + 1;
         });
 
@@ -132,10 +137,54 @@
 		newPage.appendChild(header);
 		newPage.appendChild(content);
 		newPage.appendChild(footer);
+
+
+		var popup = document.createElement('div');
+		popup.setAttribute('data-role', "popup");
+		popup.setAttribute('id', 'popupParis');
+		popup.setAttribute('data-overlay-theme', 'a');
+		popup.setAttribute('data-theme', 'd');
+		popup.setAttribute('data-corners', 'false');
+
+		var popupA = document.createElement('a');
+		popupA.setAttribute('href', '#');
+		popupA.setAttribute('data-rel', 'back');
+		popupA.setAttribute('data-role', 'button');
+		popupA.setAttribute('data-theme', 'a');
+		popupA.setAttribute('data-icon', 'delete');
+		popupA.setAttribute('data-iconpos', 'notext');
+		popupA.setAttribute('class', 'ui-btn-right');
+
+		var popupAT = document.createTextNode('Close');
+
+		var popupImg = document.createElement('img');
+		popupImg.setAttribute('class', 'popphoto');
+		popupImg.setAttribute('src', 'http://cdn4.blogs.babble.com/pets/files/cat-tongue/02.jpg');
+		popupImg.setAttribute('style', 'max-height:512px');
+		popupImg.setAttribute('alt', 'Paris, France');
+
+		popupA.appendChild(popupAT);
+		popup.appendChild(popupA);
+		popup.appendChild(popupImg);
+		newPage.appendChild(popup);
+
+
+
+		var bpop = document.createElement('div');
+		bpop.setAttribute('data-role', 'popup');
+		bpop.setAttribute('id', 'popupBasic');
+
+		var bp = document.createElement('p');
+		var bText = document.createTextNode("This is a completely basic popup, no options set.");
+
+		bp.appendChild(bText);
+		bpop.appendChild(bp);
+		newPage.appendChild(bpop);
 		$('body').append(newPage);
 	}
 </script>
 
+/* Script for swipe event */
 <script type="text/javascript">
 	$(document).on('pagebeforecreate', function() {
 		$(".changePage").swiperight(function(event) {
@@ -158,6 +207,13 @@
 				event.stopImmediatePropagation();
 		});
 
+	});
+</script>
+<script type="text/javascript">
+	$(document).on('pagebeforecreate', function() {
+		$('img').click(function() {
+			$("#popupBasic").popup();
+		});
 	});
 </script>
 </html>
