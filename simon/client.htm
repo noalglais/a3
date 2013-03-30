@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div data-role="page" id="home">
-		<div data-role="header" data-theme="f">
+		<div data-role="header" data-theme="b">
 			<h1>My Favourite Things</h1>
 		</div><!-- /header -->
 
@@ -28,7 +28,6 @@
 		<div class="jqm-footer">
 			<ul data-role="listview" data-inset="true">
 				<li id="StartApp" class="changePage">
-					<input id="homepage" class="changePage" type="hidden" value='{"right":"#page1"}'></input>
 					Let's start the application >>>>
 				</li>
 			</ul>
@@ -40,24 +39,33 @@
 
 
 <script type="text/javascript">
-    $.getJSON('june.json', function (data) {
+    $.getJSON('favs.json', function (data) {
 		var numPage = 1;
-		var lastPage = 1;
+		var lastPage = 0;
 		var count = 0;
-		makePage(numPage, lastPage);
-		$('#swipePage'+numPage).attr("value", '{"left":"end", "right":"#page2"}');
         $.each(data, function (index) {
-			if (count > 9)
+			alert(count);
+			if (count > 2)
 			{ // if tweet count exceeds 10 per page, reset the count and increment pageNum
 				count = 0;
 				numPage = numPage + 1;
 			}
 
-			if (count == 0 && numPage != 1)
+			if (count == 0)
 			{ // if count = 0, we need to make new page
 				$('#tweet'+(numPage-1)).listview("refresh");
 				makePage(numPage, lastPage);
-				$('#swipePage'+numPage).attr("value", '{"left":"#page"'+(numPage - 1)+', "right":"#page"'+(numpage + 1)+'}');
+				if (lastPage == 0)
+				{
+					$('#swipePage'+numPage).attr("left", "#home");
+					$('#swipePage'+numPage).attr("right", "end");
+				}
+				else 
+				{
+					$('#swipePage'+lastPage).attr("right", "#page"+numPage);
+					$('#swipePage'+numPage).attr("left", "#page"+lastPage);
+					$('#swipePage'+numPage).attr("right", "end");
+				}
 				lastPage = numPage;
 			}
 			var tweet = this;
@@ -73,13 +81,19 @@
 
     });
 	function makePage(numPage, lastPage) {
+		//header
+		var header = document.createElement('div');
+		header.setAttribute('data-role', 'header');
+		header.setAttribute('data-theme', 'b');
+		var headerH = document.createElement('h1');
+		var headerText = document.createTextNode("My Favourite Things");
 		//page
 		var newPage = document.createElement('div');
 		newPage.setAttribute('data-role', 'page');
 		newPage.setAttribute('id', 'page'+numPage);
 		//page content
 		var content = document.createElement('div');
-		content.setAtribute('data-role', 'content');
+		content.setAttribute('data-role', 'content');
 		//demo-html
 		var demoHtml = document.createElement('div');
 		demoHtml.setAttribute('data-demo-html', 'true');
@@ -110,7 +124,11 @@
 
 		demoHtml.appendChild(tweet);
 		content.appendChild(demoHtml);
+		
+		headerH.appendChild(headerText);
+		header.appendChild(headerH);
 
+		newPage.appendChild(header);
 		newPage.appendChild(content);
 		newPage.appendChild(footer);
 		$('body').append(newPage);
@@ -118,11 +136,13 @@
 </script>
 
 <script type="text/javascript">
-	$(document).on('pagebeforecreate', fuction() {
+	$(document).on('pagebeforecreate', function() {
 		$(".changePage").swiperight(function(event) {
-				var target = $(this).find("input").attr("value").right;
-				alert(target);
-				if (target == "end") {
+				var target = $(this).find("input").attr("right");
+				if (target == undefined)
+				{
+					target = "#page1";
+				} else if (target == "end") {
 					alert("You are in the last page of the application!");
 					event.stopImmediatePropagation();
 				}
@@ -131,8 +151,7 @@
 		});
 
 		$(".changePage").swipeleft(function(event) {
-				var target = $(this).find("input").attr("value").left;
-				alert(target);
+				var target = $(this).find("input").attr("left");
 				if (target == "end") {
 					alert("You are in the first page of the application!");
 					event.stopImmediatePropagation();
@@ -140,7 +159,6 @@
 				$.mobile.changePage(target);
 				event.stopImmediatePropagation();
 		});
-
 
 	});
 </script>
