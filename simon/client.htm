@@ -41,7 +41,7 @@
 
 /* Script for creating new page and inserting tweets */
 <script type="text/javascript">
-    $.getJSON('favs.json', function (data) {
+    $.getJSON('june.json', function (data) {
 		var numPage = 1;
 		var lastPage = 0;
 		var tweetsPerPage = 10;
@@ -72,7 +72,7 @@
 			var shtml='';
 
 			shtml=shtml+'<li>';
-			shtml=shtml+'<img src=\"'+tweet.user.profile_image_url+'\" />';
+			shtml=shtml+'<img src=\"'+tweet.user.profile_image_url_https+'\" />';
 			shtml=shtml+'<h3>'+tweet.text+'</h3>';
 			shtml=shtml+'<p> Count:'+tweet.retweet_count+'</p>';
 			shtml=shtml+'</li>';
@@ -168,6 +168,64 @@
 	
 
 	function makePopUpProfile (tweet, numPage, count) {
+		/*var id = 'profile'+numPage +''+count;
+		var popup = document.createElement('div');
+		popup.setAttribute('data-role', 'popup');
+		popup.setAttribute('id', id);
+		popup.setAttribute('class', 'ui-content');
+		popup.setAttribute('data-dismissible', 'false');
+		popup.setAttribute('data-overlay-theme', 'a');
+
+		var a = document.createElement('a');
+		a.setAttribute('href', '#');
+		a.setAttribute('data-rel', 'back');
+		a.setAttribute('data-role', 'button');
+		a.setAttribute('data-theme', 'a');
+		a.setAttribute('data-icon', 'delete');
+		a.setAttribute('data-iconpos', 'notext');
+		a.setAttribute('class', 'ui-btn-right');
+		var aText = document.createTextNode("Close");
+		a.appendChild(aText);
+
+		var header = document.createElement('div');
+		header.setAttribute('class', 'profile-header-inner');
+		header.setAttribute('data-background-image', 'url("https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png")');
+		header.setAttribute('style', 'background-image: url("https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png")');
+
+		var overlay = document.createElement('div');
+		overlay.setAttribute('class', 'profile-header-inner-overlay');
+
+		var profilepicture = document.createElement('a');
+		profilepicture.setAttribute('href', 'https://www.twitter.com/'+tweet.user.screen_name);
+		profilepicture.setAttribute('class', 'profile-picture');
+		profilepicture.setAttribute('data-send-impression-cookie', 'true');
+
+		var ppimg = document.createElement('img');
+		ppimg.setAttribute('src', tweet.user.profile_image_url_https);
+		ppimg.setAttribute('alt', tweet.user.screen_name);
+
+		var card = document.createElement('div');
+		card.setAttribute('class', 'profile-card-inner');
+		card.setAttribute('data-screen-name', tweet.user.screen_name);
+		card.setAttribute('data-user-id', tweet.user.id_str);
+
+		var name = document.createElement('h1');
+		name.setAttribute('class', 'fullname');
+		var nameText = document.createTextNode(tweet.user.screen_name);
+		name.appendChild(nameText);
+
+		card.appendChild(name);
+		profilepicture.appendChild(ppimg);
+		header.appendChild(overlay);
+		header.appendChild(profilepicture);
+		header.appendChild(card);
+
+		popup.appendChild(a);
+		popup.appendChild(header);
+
+		$('#page'+numPage).append(popup);*/
+
+
 		var id = 'profile'+numPage +''+count;
 		var popup = document.createElement('div');
 		popup.setAttribute('data-role', 'popup');
@@ -187,12 +245,25 @@
 		var aText = document.createTextNode("Close");
 		a.appendChild(aText);
 
-		var background = document.createElement('img');
+		/*var background = document.createElement('img');
 		background.setAttribute('class', 'popphoto');
-		background.setAttribute('src', 'https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png');
+		background.setAttribute('src', 'https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png');*/
+		
+		var background = document.createElement('div');
+		background.setAttribute('class', 'profile-header-inner');
+		//background.setAttribute('data-background-image', 'url("https://si0.twimg.com/profile_banners/7517222/1362427754/web")');
+		background.setAttribute('style', 'height: 260px; width: 520px; position: relative; margin-left:auto; margin-right:auto; background-image: url("https://si0.twimg.com/profile_banners/7517222/1362427754/web");');
+		
+		var name = document.createElement('h1');
+		name.setAttribute('class', 'fullname');
+		name.setAttribute('style', 'font-colour: #000000;');
+		var nameText = document.createTextNode(tweet.user.screen_name);
+		name.appendChild(nameText);
 
+		background.appendChild(name);
 		popup.appendChild(a);
 		popup.appendChild(background);
+		//popup.appendChild(profilePicture);
 
 		$('#page'+numPage).append(popup);
 	}
