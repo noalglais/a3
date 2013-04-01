@@ -73,14 +73,14 @@
 
 			shtml=shtml+'<li>';
 			shtml=shtml+'<img src=\"'+tweet.user.profile_image_url_https+'\" />';
-
-			var txt = textWithLinks(tweet.text, tweet.entities.urls);
-
-			shtml=shtml+txt;
+			shtml=shtml+'<h3>'+hashtag(tweet.text)+'</h3>';
+// 			var txt = textWithLinks(tweet.text, tweet.entities.urls);
+// 
+// 			shtml=shtml+txt;
 			shtml=shtml+'<p> Count:'+tweet.retweet_count+'</p>';
 			shtml=shtml+'</li>';
 			
-			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#profile'+numPage+''+count+'" data-rel="popup" data-role="button" data-inline="true" data-transition="pop" data-position-to="window">User Info</a></li>'
+			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#profile'+numPage+''+count+'" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-position-to="window">User Info</a></li>'
 
 			$('#tweet'+numPage).append(shtml);
 			makePopUpProfile(tweet, numPage, count);
@@ -144,6 +144,44 @@
 		$('body').append(newPage);
 	}
 	
+	
+	 /*
+	 * 
+	 */
+	 	function hashtag(tweets){
+	  var occurence = tweets.split("#").length - 1;
+	  var count = 0;
+	  var holder =tweets;
+	  while (count < occurence){
+	    holder = hashhelper(holder);
+	    count ++;
+	    }
+	    return holder;
+	  } 
+	  
+	 /*
+	 * 
+	 */
+	  function hashhelper(tweettext){
+	    var parsed = tweettext.split(' ');
+	    var i = 0;
+	    while (i<parsed.length){
+	      if (parsed[i][0] == '#'){
+		var hash1 = parsed[i];
+		var hash2 = parsed[i].substring(1);
+		parsed[i]="<a href='#' class='hash' onclick=newwindow('https://twitter.com/search?q=%23"+hash2+"&src=hash') value='"+hash2+"'>"+hash1+"</a> ";
+		return parsed.join(" ")
+		} 
+	    i++;}
+	    return tweettext;
+	  }
+	
+	/*
+	 * 
+	 */
+	function newwindow(url){
+		window.open(url);}
+	
 	/*
 	 * 
 	 */
@@ -201,7 +239,7 @@
 		var background = document.createElement('div');
 		background.setAttribute('class', 'profile-header-inner');
 		//background.setAttribute('data-background-image', 'url("https://si0.twimg.com/profile_banners/7517222/1362427754/web")');
-		background.setAttribute('style', 'height: 260px; width: 520px; position: relative; margin-left:auto; margin-right:auto; background-image: url("https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png");');
+		background.setAttribute('style', 'height: 260px; max-width: 520px; position: relative; margin-left:auto; margin-right:auto; background-image: url("https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png");');
 		
 		var profileImg = document.createElement('img');
 		profileImg.setAttribute('class', 'profpic');
