@@ -73,10 +73,10 @@
 
 			shtml=shtml+'<li>';
 			shtml=shtml+'<img src=\"'+tweet.user.profile_image_url_https+'\" />';
-
-			var txt = textWithLinks(tweet.text, tweet.entities.urls);
-
-			shtml=shtml+txt;
+			shtml=shtml+'<h3>'+hashtag(tweet.text)+'</h3>';
+// 			var txt = textWithLinks(tweet.text, tweet.entities.urls);
+// 
+// 			shtml=shtml+txt;
 			shtml=shtml+'<p> Count:'+tweet.retweet_count+'</p>';
 			shtml=shtml+'</li>';
 			
@@ -167,6 +167,44 @@
 		newPage.appendChild(bpop);
 		$('body').append(newPage);
 	}
+	
+	
+	 /*
+	 * 
+	 */
+	 	function hashtag(tweets){
+	  var occurence = tweets.split("#").length - 1;
+	  var count = 0;
+	  var holder =tweets;
+	  while (count < occurence){
+	    holder = hashhelper(holder);
+	    count ++;
+	    }
+	    return holder;
+	  } 
+	  
+	 /*
+	 * 
+	 */
+	  function hashhelper(tweettext){
+	    var parsed = tweettext.split(' ');
+	    var i = 0;
+	    while (i<parsed.length){
+	      if (parsed[i][0] == '#'){
+		var hash1 = parsed[i];
+		var hash2 = parsed[i].substring(1);
+		parsed[i]="<a href='#' class='hash' onclick=newwindow('https://twitter.com/search?q=%23"+hash2+"&src=hash') value='"+hash2+"'>"+hash1+"</a> ";
+		return parsed.join(" ")
+		} 
+	    i++;}
+	    return tweettext;
+	  }
+	
+	/*
+	 * 
+	 */
+	function newwindow(url){
+		window.open(url);}
 	
 	/*
 	 * 
