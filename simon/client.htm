@@ -80,7 +80,7 @@
 			shtml=shtml+'<p> Count:'+tweet.retweet_count+'</p>';
 			shtml=shtml+'</li>';
 			
-			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#profile'+numPage+''+count+'" data-rel="popup" data-role="button" data-inline="true" data-transition="pop" data-position-to="window">User Info</a></li>'
+			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#profile'+numPage+''+count+'" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-position-to="window">User Info</a></li>'
 
 			$('#tweet'+numPage).append(shtml);
 			makePopUpProfile(tweet, numPage, count);
