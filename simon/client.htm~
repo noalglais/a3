@@ -73,10 +73,7 @@
 
 			shtml=shtml+'<li>';
 			shtml=shtml+'<img src=\"'+tweet.user.profile_image_url_https+'\" />';
-
-			var txt = textWithLinks(tweet.text, tweet.entities.urls);
-
-			shtml=shtml+txt;
+			shtml=shtml+'<h3>'+tweet.text+'</h3>';
 			shtml=shtml+'<p> Count:'+tweet.retweet_count+'</p>';
 			shtml=shtml+'</li>';
 			
