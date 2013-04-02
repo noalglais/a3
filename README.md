@@ -26,7 +26,7 @@ CSS Files
 ---------
 
 
-Other Deatails
+Other Details
 ---------
 
 Layout: out theme popup and tweets information automatically adjust according to the browser size <br>
