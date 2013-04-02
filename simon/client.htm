@@ -72,7 +72,7 @@
 			var shtml='';
 
 			shtml=shtml+'<li>';
-			shtml=shtml+'<img src=\"'+tweet.user.profile_image_url_https+'\" />';
+			shtml=shtml+'<img class=listProfile src=\"'+tweet.user.profile_image_url_https+'\" />';
 			shtml=shtml+'<h3>'+hashtag(tweet.text)+'</h3>';
 // 			var txt = textWithLinks(tweet.text, tweet.entities.urls);
 // 
@@ -239,15 +239,15 @@
 		var background = document.createElement('div');
 		background.setAttribute('class', 'profile-header-inner');
 		//background.setAttribute('data-background-image', 'url("https://si0.twimg.com/profile_banners/7517222/1362427754/web")');
-		background.setAttribute('style', 'height: 260px; max-width: 520px; position: relative; margin-left:auto; margin-right:auto; background-image: url("https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png");');
+		background.setAttribute('style', 'word-wrap: break-word; min-height: 260px; max-width: 520px; position: relative; margin-left:auto; margin-right:auto; background-image: url("https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png");');
 		
 		var profileImg = document.createElement('img');
 		profileImg.setAttribute('class', 'profpic');
 		profileImg.setAttribute('src', tweet.user.profile_image_url_https);
 		
-		var name = document.createElement('h2');
+		var name = document.createElement('p');
 		name.setAttribute('class', 'fullname');
-		var nameText = document.createTextNode(tweet.user.screen_name+'  ');
+		var nameText = document.createTextNode(tweet.user.name+'  ');
 		name.appendChild(nameText);
 		
 		if (tweet.user.verified) {
@@ -257,8 +257,27 @@
 			name.appendChild(verified);
 		}
 		
+		var screenName = document.createElement('p');
+		screenName.setAttribute('class', 'screenname');
+		var screenText = document.createTextNode('@'+tweet.user.screen_name);
+		screenName.appendChild(screenText);
+		
+		var description = document.createElement('p');
+		description.setAttribute('class', 'des');
+		var desText = document.createTextNode(tweet.user.description);
+		description.appendChild(desText);
+		
+		var loc = document.createElement('p');
+		loc.setAttribute('class', 'location');
+		var locText = document.createTextNode(tweet.user.location + "  " + tweet.user.url);
+		loc.appendChild(locText);
+		
 		background.appendChild(profileImg);
 		background.appendChild(name);
+		background.appendChild(screenName);
+		background.appendChild(description);
+		background.appendChild(loc);
+		
 		popup.appendChild(a);
 		popup.appendChild(background);
 
@@ -293,6 +312,10 @@
 </script>
 
 <style>
+	img.listProfile {
+		height:80px;
+		width:80px;
+	}
 	img.profpic {
 		position:relative;
 		top:15px;
@@ -303,11 +326,28 @@
 		margin-right:auto;
 		display: block;
 	}
-	h2.fullname {
+	p.fullname {
+		font-size: 18pt;
 		position:relative;
 		color: white;
 		text-align:center;
  	}
-	
+	p.screenname {
+		text-align:center;
+		color:white;
+	}
+	p.des {
+		padding-left:15px;
+		padding-right:15px;
+		text-align:center;
+		color:white;
+		position:relative;
+	}
+	p.location {
+		text-align:center;
+		color:white;
+		position:relative;
+		padding-bottom:15px;
+	}
 <style>
 </html>
