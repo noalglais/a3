@@ -286,10 +286,10 @@
 		
 		var loc = document.createElement('p');
 		loc.setAttribute('class', 'location');
-		var locText = document.createTextNode(tweet.user.location + " ¡¤ " + tweet.user.url);
-		if (tweet.user.entities.url.urls.expanded_url) {
-			var locText = document.createTextNode(tweet.user.location + " ¡¤ " + tweet.user.entities.url.urls.expanded_url);
-		}
+		var locText = document.createTextNode(tweet.user.location + " ï¿½ï¿½ " + tweet.user.url);
+		//if (tweet.user.entities.url.urls.expanded_url) {
+		//	var locText = document.createTextNode(tweet.user.location + " ï¿½ï¿½ " + tweet.user.entities.url.urls.expanded_url);
+		//}
 		
 		loc.appendChild(locText);
 		
