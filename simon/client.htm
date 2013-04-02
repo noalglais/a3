@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div data-role="page" id="home">
-		<div data-role="header" data-theme="b">
+		<div data-role="header" data-theme="a">
 			<h1>My Favourite Things</h1>
 		</div><!-- /header -->
 
@@ -26,7 +26,7 @@
 			</div>
 		</div>
 
-		<div class="jqm-footer" data-role="footer" data-position="fixed" data-theme="b">
+		<div class="jqm-footer" data-role="footer" data-position="fixed" data-theme="a">
 			<ul data-role="listview" data-inset="true">
 				<li id="StartApp" class="changePage">
 					Let's start the application >>>>
@@ -88,7 +88,7 @@
 		//header
 		var header = document.createElement('div');
 		header.setAttribute('data-role', 'header');
-		header.setAttribute('data-theme', 'b');
+		header.setAttribute('data-theme', 'a');
 		var headerH = document.createElement('h1');
 		var headerText = document.createTextNode("My Favourite Things");
 		//page
@@ -112,7 +112,7 @@
 		footer.setAttribute('class', 'jqm-footer');
 		footer.setAttribute('data-role', 'footer');
 		footer.setAttribute('data-position', 'fixed');
-		footer.setAttribute('data-theme', 'b');
+		footer.setAttribute('data-theme', 'a');
 		var footerList = document.createElement('ul');
 		footerList.setAttribute('data-role', 'listview');
 		footerList.setAttribute('data-inset', 'true');
@@ -393,6 +393,7 @@
 		word-wrap: break-word;
 	}
 	li.changePage {
+		font-size:250%;
 		text-align:center;
 	}
 </style>
