@@ -182,35 +182,48 @@
 	function newwindow(url){
 		window.open(url);}
 	
+	
 	/*
 	 * tweet.entities.media.url
 	 */
 	function textWithLinks(text, urls) {
-		
+		//replace the \n with a white space
+// 		text = text.replace("\\n", " ");
 		var converted_text = '<h3>';
-
+		indices_array = [];
 		urls_array = [];
+		var newstring = '';
+		var counter=0;
 		for (var i=0;i<urls.length;i++) {
 			urls_array.push(urls[i].url);
+			indices_array.push(urls[i].indices);
 		}
-
-			
-
-		var parsed_text = text.split(" "); 
-		$(parsed_text).each(function() { 
-			var index = urls_array.indexOf(this.toString());
-			if(index != -1) {
-				var link = "<a href='#' class ='link' onclick=newwindow('"+this+"') >"+this+"</a> ";
-				converted_text += link;
-			} 
-			else {
-				converted_text += this;
-			}
-			converted_text += " ";
-		});
+		for (var a=0; a<urls_array.length; a++){
+			var link = "<a href='#' class ='link' onclick=newwindow('"+urls_array[a]+"') >"+urls_array[a]+"</a> ";
+			newstring += text.substring(counter, indices_array[a][0]) + "<a href='#' class ='link' onclick=newwindow('"+urls_array[a]+"') >"+urls_array[a]+"</a> ";
+			counter = indices_array[a][1];
+		}
+		newstring += text.substring(indices_array[a][1]);
 		
-		converted_text += '</h3>';
-		return converted_text;
+		alert(newstring);
+	    
+// 		var parsed_text = text.split(" "); 
+// 		$(parsed_text).each(function() { 
+// 			var index = urls_array.indexOf(this.toString());
+// // 			alert(this);
+// 			if(index != -1) {
+// 				var link = "<a href='#' class ='link' onclick=newwindow('"+this+"') >"+this+"</a> ";
+// 				converted_text += link;
+// 			} 
+// 			else {
+// 				converted_text += this;
+// 			}
+// 			converted_text += " ";
+// 		});
+// 		
+// 		converted_text += '</h3>';
+// 		return converted_text;
+return 1;
 	}
 	
 	
