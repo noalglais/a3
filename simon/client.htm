@@ -73,7 +73,7 @@
 			var shtml='';
 			shtml=shtml+'<li>';
 			shtml=shtml+'<img class=listProfile src=\"' + tweet.user.profile_image_url_https + '\" />'; //profile picture
- 			shtml=shtml+'<h3>'+hashtag(textWithLinks(tweet.text, tweet.entities.urls))+'</h3>'; // description with links
+			shtml=shtml+'<h3>' + linkTweet(tweet) + '</h3>';
 			shtml=shtml+'<p> Retweeted ' + tweet.retweet_count + ' times.</p>';
 			shtml=shtml+'</li>';
 			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#profile'+numPage+''+count+'" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-position-to="window">User Info</a></li>'
@@ -143,64 +143,91 @@
 		$('body').append(newPage);
 	}
 	
-	/* create links for hash tag. */
-	function hashtag(tweets){
-		var occurence = tweets.split("#").length - 1;
-		var count = 0;
-		var holder =tweets;
-			while (count < occurence){
-				holder = hashhelper(holder);
-			    count ++;
-			}
-		return holder;
-	}
-	
 	/*
-	 * helper function for hashtag
-	 */
-	function hashhelper(tweettext){
-		var parsed = tweettext.split(' ');
-	    var i = 0;
-	    while (i<parsed.length){
-			if (parsed[i][0] == '#'){
-				var hash1 = parsed[i];
-				var hash2 = parsed[i].substring(1);
-				parsed[i]="<a href='#' class='hash' onclick=newwindow('https://twitter.com/search?q=%23"+hash2+"&src=hash') value='"+hash2+"'>"+hash1+"</a> ";
-				return parsed.join(" ")
-			} 
-			i++;
-		}
-		return tweettext;
-	}
-	
-	/*
-	 * 
+	 * opens new window with url
 	 */
 	function newwindow(url){
 		window.open(url);
 	}
 	
-	/*
-	 * tweet.entities.media.url
-	 */
-	function textWithLinks(text, urls) {
-		var newstring= '<h3>';
-		indices_array = [];
-		urls_array = [];
+	/* sort link by indices using bubble sort method (no user will have many urls, mentions, hashtags. Thus bubble sort is efficient enough)*/
+	function sortLink(link) {
+		var j = 0;
+		var not_done = 1;
+		var temp;
+		while(not_done) {
+			not_done = 0;
+			j++;
+			for (var i = 0; i < link.length - j ; i++) {
+				if (link[i].indices[0] > link[i + 1].indices[0]) {
+					temp = link[i];
+					link[i] = link[i + 1];
+					link[i + 1] = temp;
+					not_done = 1;
+				}
+			}
+		}
+		return link;
+	}
 
-		var counter=0;
-		for (var i=0;i<urls.length;i++) {
-			urls_array.push(urls[i].url);
-			indices_array.push(urls[i].indices);
+	/* link urls, user mentions, and hashtags to the text */
+	function linkTweet(tweet) {
+		var hashtag = tweet.entities.hashtags;
+		var urls = tweet.entities.urls;
+		var user = tweet.entities.user_mentions;
+		var media = tweet.entities.media;
+		var text = tweet.text;
+		var newText = '';
+		var link = [];
+
+		if (hashtag) {
+			for (var i = 0; i < hashtag.length; i++){
+				link.push({"type":"hashtag", "text":hashtag[i].text, "indices":hashtag[i].indices});
+			}
 		}
-		for (var a=0; a<urls_array.length; a++){
-			//var link = "<a href='#' class ='link' onclick=newwindow('"+urls_array[a]+"') >"+urls_array[a]+"</a> ";
-			newstring += text.substring(counter, indices_array[a][0]) + "<a href='#' class ='link' onclick=newwindow('"+urls_array[a]+"') >"+urls_array[a]+"</a> ";
-			counter = indices_array[a][1];
+
+		if (urls) {
+			for (var i = 0; i < urls.length; i++) {
+				link.push({"type":"url", "url":urls[i].url, "display":urls[i].display_url, "indices":urls[i].indices});
+			}
 		}
-		newstring += text.substring(indices_array[a-1][1]);
-		newstring += '</h3>';
-		return newstring;
+
+		if (user) {
+			for (var i = 0; i < user.length; i++) {
+				link.push({"type":"user", "screen_name":user[i].screen_name, "indices":user[i].indices});
+			}
+		}
+
+		if (media) {
+			for (var i = 0; i < media.length; i++) {
+				link.push({"type":"media", "url":media[i].url, "display":media[i].display_url, "indices":media[i].indices});
+			}
+		}
+		link = sortLink(link);
+		var start = 0;
+		for (var i = 0; i < link.length; i++) {
+			var end = link[i].indices[0];
+			newText = newText + text.substring(start, end);
+			var type = link[i].type;
+			if (type == "hashtag")
+			{
+				newText = newText +  "<a href='#' class='hash' onclick=newwindow('https://twitter.com/search?q=%23"+link[i].text+"&src=hash')>#"+link[i].text+"</a> ";
+			}
+			if (type == "url")
+			{
+				newText = newText +  "<a href='#' class ='link' onclick=newwindow('"+link[i].url+"') >"+link[i].display+"</a> ";
+			}
+			if (type == "user")
+			{
+				newText = newText +  "<a href='#' class ='mention' onclick=newwindow('https://twitter.com/"+link[i].screen_name+"') >@"+link[i].screen_name+"</a> ";
+			}
+			if (type == "media")
+			{
+				newText = newText +  "<a href='#' class ='media' onclick=newwindow('"+link[i].url+"') >"+link[i].display+"</a> ";
+			}
+			start = link[i].indices[1];
+		}
+		return newText;
 	}
 	
 	/* make profile card for each user in pop-up window */
