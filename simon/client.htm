@@ -41,10 +41,10 @@
 
 <script type="text/javascript">
 	/* Script for creating new page and inserting tweets */
-    $.getJSON('favs.json', function (data) {
+    $.getJSON('fifteen.json', function (data) {
 		var numPage = 1;			// number of pages
 		var lastPage = 0;			// page # for last page
-		var tweetsPerPage = 10;		// 10 tweets per page
+		var tweetsPerPage = 20;		// 10 tweets per page
 		var count = 1;				// counter for # of tweets
         $.each(data, function (index) {
 			if (count > tweetsPerPage)
@@ -68,7 +68,6 @@
 				}
 				lastPage = numPage; // set lastPage to the current page #
 			}
-
 			var tweet = this;
 			var shtml='';
 			shtml=shtml+'<li>';
@@ -253,8 +252,12 @@
 		
 		var background = document.createElement('div');
 		background.setAttribute('class', 'profile-header-inner');
-		background.setAttribute('style', 'word-wrap: break-word; min-height: 260px; max-width: 520px; position: relative; margin-left:auto; margin-right:auto; background-image: url("https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png");');
-		
+		if (tweet.user.profile_banner_url)
+		{
+			background.setAttribute('style', 'word-wrap: break-word; min-height: 260px; max-width: 520px; position: relative; margin-left:auto; margin-right:auto; background-image: url("'+tweet.user.profile_banner_url+'/web");');
+		} else {
+			background.setAttribute('style', 'word-wrap: break-word; min-height: 260px; max-width: 520px; position: relative; margin-left:auto; margin-right:auto; background-image: url("https://abs.twimg.com/a/1364441607/t1/img/grey_header_web.png");');
+		}
 		var profileImg = document.createElement('img');
 		profileImg.setAttribute('class', 'profpic');
 		profileImg.setAttribute('src', tweet.user.profile_image_url_https);
@@ -283,9 +286,9 @@
 		
 		var loc = document.createElement('p');
 		loc.setAttribute('class', 'location');
-		var locText = document.createTextNode(tweet.user.location + "  " + tweet.user.url);
+		var locText = document.createTextNode(tweet.user.location + " ¡¤ " + tweet.user.url);
 		if (tweet.user.entities.url.urls.expanded_url) {
-			var locText = document.createTextNode(tweet.user.location + "  " + tweet.user.entities.url.urls.expanded_url);
+			var locText = document.createTextNode(tweet.user.location + " ¡¤ " + tweet.user.entities.url.urls.expanded_url);
 		}
 		
 		loc.appendChild(locText);
@@ -364,6 +367,8 @@
 		position:relative;
 	}
 	p.location {
+		padding-left:15px;
+		padding-right:15px;
 		text-align:center;
 		color:white;
 		position:relative;
