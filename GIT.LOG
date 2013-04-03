@@ -1,0 +1,57 @@
+c8e570f was jhsong92, 2 minutes ago, message: fixed minor error
+5008764 was jhsong92, 2 hours ago, message: Update README.md
+da8c86a was jhsong92, 2 hours ago, message: Update README.md
+78b4044 was jhsong92, 2 hours ago, message: Update README.md
+f4840dd was jhsong92, 2 hours ago, message: Update README.md
+5b92693 was jhsong92, 2 hours ago, message: Update README.md
+5d2c987 was jhsong92, 2 hours ago, message: Update README.md
+5b8f2cc was jhsong92, 28 minutes ago, message: Few minor fixed in the code. Allowed tweets to present favorite_count and retweet_count if they exists. Changed data-theme for <li>
+d4b7d25 was jhsong92, 53 minutes ago, message: removed "simon" folder from repository
+4c24a70 was jhsong92, 58 minutes ago, message: moved everything out of "simon" folder and have them in the main page
+e2cb6b9 was jhsong92, 63 minutes ago, message: removed prototype "frontend.htm" and unused "favs.json"
+133cc4a was jhsong92, 65 minutes ago, message: deleted unused css folder along with its files
+fde8d7d was jhsong92, 2 hours ago, message: removed simon/css/a3.css because it is not used
+6b5c671 was dreamstar1, 7 hours ago, message: fixed typo
+e593e36 was dreamstar1, 7 hours ago, message: Added basic structure and information to readme
+bb19ea2 was henry ku, 7 hours ago, message: changed footer and header theme, changed footer textsize
+04e03db was jhsong92, 7 hours ago, message: fixed problem when either location or url was not provided for User Info
+3892d4f was dreamstar1, 14 hours ago, message: Update client.htm
+39f2183 was jhsong92, 19 hours ago, message: latest update
+ed10650 was jhsong92, 19 hours ago, message: linking urls, user mentions, and hashtag to the tweet text is done. Everything gets opened to new window
+f6ff101 was jhsong92, 21 hours ago, message: cleaned up the code (tabs). footer is lock in the bottom of the window regardless of window size
+e597fa5 was henry ku, 27 hours ago, message: finished merging hashtag and link parsing
+e5821fe was henry ku, 27 hours ago, message: Merge https://github.com/noalglais/a3
+a9bc2f4 was henry ku, 27 hours ago, message: working on link modifications
+fc05845 was Song Simon Joon-Hee, 28 hours ago, message: break-word is applied to tweet
+b0a0011 was Song Simon Joon-Hee, 28 hours ago, message: Merge https://github.com/noalglais/a3
+979547e was Song Simon Joon-Hee, 28 hours ago, message: merge
+3b61981 was henry ku, 28 hours ago, message: merged link and hash
+b007bb6 was Song Simon Joon-Hee, 28 hours ago, message: user info popup is done, It adjusts to the window size
+a8a2725 was Song Simon Joon-Hee, 29 hours ago, message: Merge https://github.com/noalglais/a3
+1fff55f was Song Simon Joon-Hee, 29 hours ago, message: commit
+25b02eb was Xiong Zheng, 29 hours ago, message: popup auto width
+c832c56 was Xiong Zheng, 29 hours ago, message: popup: transition: slidedown is cooler than pop
+2d61856 was Xiong Zheng, 30 hours ago, message: Merge https://github.com/noalglais/a3
+e8ed004 was Xiong Zheng, 30 hours ago, message: popup: transition: slidedown is cooler than pop
+ea6c2bd was henry ku, 30 hours ago, message: added parsing and linking for hashtags
+bb047d9 was Xiong Zheng, 30 hours ago, message: Merge https://github.com/noalglais/a3
+9fe5590 was Xiong Zheng, 30 hours ago, message: css word wrap
+fda81ac was Sigal Alon, 31 hours ago, message: Added linking function
+0376047 was jhsong92, 2 days ago, message: currently pop up shows default grey background. check makePopUpProfile function in the script tag
+f52bc1b was jhsong92, 2 days ago, message: popup contains default background image just like twitter does. Currently background image is same for all of tweets
+dfbc121 was jhsong92, 4 days ago, message: fixed typo
+2c1f28c was jhsong92, 4 days ago, message: Got up to have backgound image in popup window. Instead of having different background img, I made common background img which is also default in twitter
+c1cc5d0 was jhsong92, 4 days ago, message: basic popup window working
+cb1ccf3 was jhsong92, 4 days ago, message: Adding new folder containing html, css, and js file which contains working copy of swipe and displaying tweets. Still need to work on pop up windows
+1694cd7 was jhsong92, 4 days ago, message: Removed simon solder from repo
+596b3d1 was jhsong92, 4 days ago, message: Removed temp folder from repo
+7ef8d93 was jhsong92, 4 days ago, message: fixed swipe. working on pagination
+ce6ff6b was jhsong92, 4 days ago, message: I didn't know what everyone else did, and since I had the latest repository (I think no one commited today?), just in case I made separate folder
+586e9ec was jhsong92, 4 days ago, message: simon's version
+5927df0 was jhsong92, 4 days ago, message: simon's version
+9310ae1 was Sigal Alon, 6 days ago, message: started making it work with twitter json format
+5a16a63 was Xiong Zheng, 12 days ago, message: add favs.json
+6a766b9 was Xiong Zheng, 12 days ago, message: add frontend html
+91aacd9 was Xiong Zheng, 12 days ago, message: add css templates, just trying the css templates in tutorial for now
+263f430 was Sigal Alon, 12 days ago, message: added team member info to readme
+4d9175f was noalglais, 12 days ago, message: Initial commit
