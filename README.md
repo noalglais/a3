@@ -24,12 +24,7 @@ CSS
 We added inline <style> tag to use css in this assignment, not including basic jquerymobile css files. (From line 358 to line 407).
 Most of css code effects on popup profile informations, changing font colors to white, giving paddings for each div, img and p, 
 and aligning them so we have good presentation of original user profile.
-Also we added
-.ui-li-heading {
-    white-space: normal;
-		word-wrap: break-word;
-}
-to allow tweets to continue to the next line of given window width is not enough to hold its data in one line.
+Also we added css code for .ui-li-heading to allow tweets to continue to the next line of given window width is not enough to hold its data in one line.
 Also we enlarged footer, the swipe bar to navigate through the application, so in the smaller window it is wide enough to perform swipe.
 
 Other Details
