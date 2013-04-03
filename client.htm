@@ -20,8 +20,8 @@
 		<div data-role="content">
 			<div data-demo-html="true">
 				<ul data-role="listview" data-inset="true">
-					<li data-role="list-divider" hidden="true"> Welcome! </li>
-					<li> This application will organize list of favourites in twitter. Swipe right on the bottom strip to start the application</li>
+					<li data-role="list-divider" hidden="true" data-theme="a"> Welcome! </li>
+					<li data-theme="d"> This application will organize list of favourites in twitter. Swipe right on the bottom strip to start the application</li>
 				</ul>
 			</div>
 		</div>
@@ -41,10 +41,10 @@
 
 <script type="text/javascript">
 	/* Script for creating new page and inserting tweets */
-    $.getJSON('fifteen.json', function (data) {
+    $.getJSON('favs.json', function (data) {
 		var numPage = 1;			// number of pages
 		var lastPage = 0;			// page # for last page
-		var tweetsPerPage = 5;		// 10 tweets per page
+		var tweetsPerPage = 15;		// 10 tweets per page
 		var count = 1;				// counter for # of tweets
         $.each(data, function (index) {
 			if (count > tweetsPerPage)
@@ -70,12 +70,20 @@
 			}
 			var tweet = this;
 			var shtml='';
-			shtml=shtml+'<li>';
+			shtml=shtml+'<li data-theme="d">';
 			shtml=shtml+'<img class=listProfile src=\"' + tweet.user.profile_image_url_https + '\" />'; //profile picture
 			shtml=shtml+'<h3>' + linkTweet(tweet) + '</h3>';
-			shtml=shtml+'<p> Retweeted ' + tweet.retweet_count + ' times.</p>';
+			var text = '';
+			if (tweet.retweet_count && !tweet.favorite_count) {
+				text = '<p>' + tweet.retweet_count + '\nRetweets</p>';
+			} else if (!tweet.retweet_count && tweet.favorite_count) {
+				text = '<p>' + tweet.favorite_count + '\nFavourites</p>';
+			} else if (tweet.retweet_count && tweet.favorite_count) {
+				text = '<p>' + tweet.retweet_count + '\nRetweets</p><p> ' + tweet.favorite_count + '\nFavourites</span></p>';
+			}
+			shtml=shtml+text;
 			shtml=shtml+'</li>';
-			shtml=shtml+'<li data-theme="b" data-rel="popup" data-role="list-divider" data-mini=true><a href="#profile'+numPage+''+count+'" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-position-to="window">User Info</a></li>'
+			shtml=shtml+'<li data-theme="a" data-rel="popup" data-role="list-divider" data-mini=true><a href="#profile'+numPage+''+count+'" data-rel="popup" data-role="button" data-inline="true" data-transition="slidedown" data-position-to="window">User Info</a></li>'
 			$('#tweet'+numPage).append(shtml);
 
 			makePopUpProfile(tweet, numPage, count); // create user info page for each tweet
